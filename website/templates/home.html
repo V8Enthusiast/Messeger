@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}{% block content %}
+    <form id="profile-data" method="POST">
+    <table style="width:100%; height:95%;">
+        <tr style="width:100%; height:69vh">
+            <td style="width:65%;">
+                <div class="description" style="width:100%">
+                    <p class="themeText">
+                    {{description|safe}}
+                    </p>
+                </div>
+            </td>
+            <td style="width:35%;" rowspan="10">
+                <div class="description" style="width:100%">
+                    {{instagram|safe}}<br>
+                    {{twitter|safe}}<br>
+                    {{facebook|safe}}<br>
+                    {{discord|safe}}<br>
+                    {{youtube|safe}}<br>
+                    {{github|safe}}<br>
+                    {{options|safe}}
+                </div>
+            </td>
+        </tr>
+    </table>
+    </form>
+    {% endblock %}
+    {% block header %} <center><h1 class="themeText">Home</h1></center> {% endblock %}
+    {% block chats %} {{chats|safe}} {% endblock %}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% if request.cookies.get("theme") %}
+        <link rel="stylesheet" href="/static/{{ request.cookies.get("theme") }}.css"> {% else %}
+        <link rel="stylesheet" href="/static/dark.css"> {% endif %}
+        
+        <div id="main">
+        <table style="width:100%">
+            <tr>
+                <td style="width:20%; vertical-align: top;" rowspan="10">
+                    {% block sidebar %}
+                    <button class="menubtn" onclick="toggleNav()">Chats</button>
+                    <div id="mySidenav" class="sidenav">
+                        <a href="/" id="menuitem">{{ user.name }}</a>
+                        <hr>
+                        {% block chats %} <a id="menuitem" href="#">Link 1</a><br> {% endblock %}
+                      
+                    </div>
+                    {% endblock %}
+                </td>
+                <td style="font-family: Arial, Helvetica, sans-serif; font-size: 38px; width: 70%; vertical-align:middle;">
+                    <center style="position: absolute; left:44vw; top:5vh" class="themeText"><b>Messeger</b></center>
+                </td>
+                {% block login %}
+                {% if user.is_authenticated %}
+                <td style="font-family: Arial, Helvetica, sans-serif; font-size: 32px; vertical-align:middle; white-space:nowrap; padding-right: 30px;">
+                    <a href="/profile" target="_blank" id="menuitem"><p class="fancyText" style="font-size: 32px;margin: 0px;">{{ user.name }}</p></a>
+                </td>
+                {% else %}
+                <td style="vertical-align: top;">
+                    
+                </td>
+                {% endif %}
+                {% endblock %}
+                <td>
+                    {% block profile %}
+                {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <button class="dropbtn">Options</button>
+                        <div class="dropdown-content">
+                        {% if request.cookies.get("theme") and request.cookies.get("theme") == "light" %}
+                        <a href="/set/dark" id="theme">Toggle Theme</a>
+                        {% else %}
+                        <a href="/set/light" id="theme">Toggle Theme</a>
+                        {% endif %}
+                        <a href="/new-direct-message">Message Someone</a>
+                        <a href="/create-server">Create/Join a Server</a>
+                        <a href="/logout">Log out</a>
+                        </div>
+                        
+                    </div>
+                {% else %}
+                    <div class="dropdown">
+                        <a href="/sign-up"><button class="menubtn">Sign Up</button></a>
+                    </div>
+                {% endif %}
+                {% endblock %}
+                </td>
+            </tr>
+            </table>
+          <title>{% block title %}Home{% endblock %}</title>
+          
+            <script src="../static/socketio.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+            <script type="text/javascript" charset="utf-8">
+                var socket = io();
+                socket.on('connect', function() {
+                    socket.emit('my event', {data: 'I\'m connected!'});
+                });
+            </script>
+    </head>
+    <body style="color:aliceblue">
+        <script src="../static/menu.js"></script>
+            <p style="font-size: 32px;">{% block header %} Home {% endblock %}</p>
+        
+        <center>
+            {% with messages = get_flashed_messages(with_categories=true) %} {% if
+            messages %} {% for category, message in messages %} 
+            {% if category == 'Error' %}
+            <div class="alert-error" role="alert">
+              {{ message }}
+              </button>
+            </div>
+            {% else %}
+            <div class="alert-success" role="alert">
+            {{ message }}
+            </button>
+            </div>
+            {% endif %} {% endfor %} {% endif %} {% endwith %}
+        
+        
+            <div class="page-content" align="center" style="justify-content: center;" id="page-content">
+            {% block content %}
+            
+            
+            
+            {% endblock %}
+            </div>
+            </center>
+        </div>
+    </body>
+
+
+</html>

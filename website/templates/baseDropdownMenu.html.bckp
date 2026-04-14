@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../static/navbar.css">
+        <table>
+            <tr>
+                <td style="width:16%; vertical-align: top;" rowspan="10">
+                    <button class="collapsible" onclick="openNav()">Chats</button>
+                    <div class="content">
+                        {% block chats %} <a id="menuitem" href="#">Link 1</a><br> {% endblock %}
+                        
+                        <a id="menuitem" href="#">Link 2</a><br>
+                        <a id="menuitem" href="#">Link 3</a><br>
+                    </div>
+                    <div id="mySidenav" class="sidenav">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <a href="#">About</a>
+                        <a href="#">Services</a>
+                        <a href="#">Clients</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </td>
+                <td style="vertical-align: top;">
+                <div class="dropdown">
+                    <button class="dropbtn">Profile</button>
+                    <div class="dropdown-content">
+                    <a href="#">Settings</a>
+                    <a href="#">Account</a>
+                    <a href="#">Help</a>
+                    </div>
+                </div>
+                </td>
+            </tr>
+          <title>{% block title %}Home{% endblock %}</title>
+          <tr>
+          
+          <td style="vertical-align: top; text-align: left; padding-left: 15px;">
+          <h1>{% block header %} Home {% endblock %}</h1>
+          </td>
+          </tr>
+    </head>
+    <body style="background-color: rgb(0, 0, 0);">
+        <script src="../static/menu.js"></script>
+        <tr>
+        <td style="padding-left: 15px;">
+        {% block content %} BaseText {% endblock %}
+        </td>
+        </tr>
+        </table>
+    </body>
+
+
+</html>

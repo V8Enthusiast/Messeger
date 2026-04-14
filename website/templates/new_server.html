@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block title %}Create or join a server{% endblock %} {% block content
+    %}
+    <center>
+    <form method="POST">
+        {% if error %}
+            <p class="alert-error">{{error}}</p>
+        {% endif %}
+      <h1 align="center" style="font-size: 42px;" class="fancyText">Create/Join a new server</h1>
+      <table id="new-server-form">
+        <tr id="new-server-form">
+      <div class="form-group">
+        <td id="new-server-form">
+        <label for="password" class="themeText">Server ID</label>
+        </td>
+        <td id="new-server-form">
+        <input
+          type="text"
+          class="form-control"
+          id="server_id"
+          name="server_id"
+          
+        />
+        </td>
+      </div>
+    </tr>
+    </table>
+      <br />
+      <button type="submit" name="join" class="menubtn" style="width:205px; border-radius: 45px;">Join Server!</button><br><br>
+      <button type="submit" name="create" class="menubtn" style="width:205px; border-radius: 45px;">Create Server!</button>
+    </form>
+  </center>
+    {% endblock %}
+    {% block sidebar %} {% endblock %} {% block login %}
+    <td style="vertical-align: top;">
+      <div class="dropdown">
+          <a href="/"><button class="menubtn">Home</button></a>
+      </div>           
+    </td>{% endblock %}
+    {% block profile %}<div class="dropdown">
+        <button class="dropbtn">Options</button>
+        <div class="dropdown-content">
+        <a href="/new-direct-message">Message Someone</a>
+        <a href="/create-server">Create a Server</a>
+        <a href="/logout">Log out</a>
+        </div>
+    </div>{% endblock %}
+    {% block chats %} {{chats|safe}} {% endblock %}
+    {% block header %}{% endblock %}

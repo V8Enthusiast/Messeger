@@ -1,0 +1,89 @@
+{% extends "base.html" %} {% block title %}Server{% endblock %} {% block content
+  %}
+  <table style="width: 100%; height: 100%; max-height: 100%; max-width: 100%; ">
+    <tr style="width: 100%; height: 100%; max-height: 100%; max-width: 100%; ">
+      <td style="width: 15%;">
+        <div class="channels" style="overflow-y: scroll; overflow-x: hidden; scroll-behavior: smooth;">
+          <center><h1 class="fancyText" style="margin-top: 10px;margin-block-end: 10px">Channels</h1></center>
+            <form method="POST">{% block channels %}{{channels|safe}}{% endblock %}<form>
+        </div>
+      </td>
+  <td style="width: 60%; height: 100%; max-height: 100%; max-width: 65%; ">
+  <div class="message-box" id="message-box">
+      {% if error %}
+      <center><p class="alert-error">{{error}}</p></center>
+      {% endif %}
+      <div class="messages" id="messages">{{dbmessages|safe}}</div>
+      
+      <div class="inputs" style="max-width: 100%; width: 100%;">
+      <table style="width: 100%; max-width: 100%;">
+      <tr style="width: 100%; max-width: 100%;">
+          <td>
+        <input
+          type="text"
+          rows="3"
+          placeholder="User ID"
+          name="user-id"
+          id="message"
+          style="background-color: #111;"
+          autofocus
+        />
+          </td>
+          <td style="padding-left: 15px;">
+        <button type="submit" name="add-user" id="send-btn" class="dropbtn" style="padding-inline: 0px; width: 90%; border-radius: 25px; font-size: 38px; padding: 5px;">Add user</button>
+          </td>
+      </tr>
+      </table>
+      </div>
+    </div>
+    <script type="text/javascript">
+      scrollToBottom();
+      var socketio = io();
+    
+      const messages = document.getElementById("messages");
+    
+      const createMessage = (name, msg) => {
+        const content = `
+        <div class="text"><a>
+            <span>
+                <strong class="fancyText">${name}:</strong> ${msg}&nbsp;&nbsp;&nbsp;
+            
+            <br>
+            <div class="muted">
+              Sent:&nbsp;${new Date().toLocaleString()}
+            </div>
+          </span></a>
+        </div>
+        `;
+        messages.innerHTML += content;
+      };
+    
+      socketio.on("message", (data) => {
+        createMessage(data.name, data.message);
+      });
+    
+      const sendMessage = () => {
+        const message = document.getElementById("message");
+        if (message.value == "") return;
+        socketio.emit("message", { data: message.value });
+        message.value = "";
+      };
+    </script>
+    {% for msg in messages %}
+    <script type="text/javascript">
+      createMessage("{{msg.name}}", "{{msg.message}}");
+    </script>
+    {% endfor %}
+    
+  </td>
+  <td style="width: 20%;" style="overflow-y: scroll; overflow-x: hidden; scroll-behavior: smooth;">
+    <div class="channels">
+      <center><h1 class="fancyText" style="margin-top: 10px;">Members</h1></center>
+      {{members|safe}}
+    </div>
+  </td>
+</tr>
+</table>
+{% endblock %}
+  {% block header %} <center><h1 class="themeText">{{server_name|safe}}&nbsp;&nbsp;&nbsp;{{editbtn|safe}}</h1></center>{% endblock %}
+  {% block chats %} {{chats|safe}} {% endblock %}

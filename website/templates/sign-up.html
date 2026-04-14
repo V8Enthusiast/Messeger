@@ -1,0 +1,85 @@
+{% extends "base.html" %} {% block title %}Sign up today!{% endblock %} {% block content
+    %}
+    <center>
+    <form method="POST">
+      <h1 align="center" style="font-size: 42px;" class="fancyText">Hang Out. Have Fun!</h1>
+      <table id="sign-up-form">
+      <tr id="sign-up-form">
+      <div class="form-group">
+        <td id="sign-up-form">
+        <label for="email" class="themeText">Email Address</label>
+        </td>
+        <td id="sign-up-form">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          
+        />
+        </td>
+      </div>
+    </tr>
+    <tr id="sign-up-form">
+      <div class="form-group">
+        <td id="sign-up-form">
+        <label for="name" class="themeText">Name</label>
+        </td>
+        <td id="sign-up-form">
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          
+        />
+        </td>
+      </div>
+    </tr>
+    <tr id="sign-up-form">
+      <div class="form-group">
+        <td id="sign-up-form">
+        <label for="password1" class="themeText">Password</label>
+        </td>
+        <td id="sign-up-form">
+        <input
+          type="password"
+          class="form-control"
+          id="password1"
+          name="password1"
+          
+        />
+        </td>
+      </div>
+    </tr>
+    <tr id="sign-up-form">
+      <div class="form-group">
+        <td id="sign-up-form">
+        <label for="password2" class="themeText">Password (Confirm)</label>
+        </td>
+        <td id="sign-up-form">
+        <input
+          type="password"
+          class="form-control"
+          id="password2"
+          name="password2"
+          
+        />
+        </td>
+      </div>
+    </tr>
+    </table>
+      <br />
+      <button type="submit" class="menubtn" style="width:275px; border-radius: 45px;">Create Account!</button>
+    </form>
+  </center>
+    {% endblock %}
+    {% block sidebar %} {% endblock %} {% block profile %}<a href="/login"><button class="menubtn">Log in</button></a>{% endblock %} {% block login %} 
+    <td style="vertical-align: top;">
+      <div class="dropdown">
+          <a href="/"><button class="menubtn">Home</button></a>
+      </div>           
+    </td>
+    {% endblock %}
+    {% block chats %} {{chats|safe}} {% endblock %}
+    {% block header %}{% endblock %}

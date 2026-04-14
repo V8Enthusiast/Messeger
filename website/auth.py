@@ -56,7 +56,7 @@ def sign_up():
                 while new_handle in handles:
                     new_handle = random.randint(10000000, 99999999)
                     
-                new_user = User(email=email, name=name, handle=new_handle, password=generate_password_hash(password1, 'sha256'))
+                new_user = User(email=email, name=name, handle=new_handle, password=generate_password_hash(password1))
                 db.session.add(new_user)
                 db.session.commit()
                 flash("Account successfully created!", category='success')
